@@ -3,11 +3,11 @@ Script to download and extract the Vosk English model
 """
 
 import os
-import requests
+import sys
 import zipfile
 import argparse
+import requests
 from tqdm import tqdm
-import sys
 
 MODEL_URL = "https://alphacephei.com/vosk/models/vosk-model-en-us-0.22.zip"
 MODEL_PATH = "models/vosk-model-en-us-0.22"
