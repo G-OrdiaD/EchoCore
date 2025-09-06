@@ -9,6 +9,8 @@ Kivy-Garden==0.1.5
 PyAudio==0.2.14
 pycparser==2.22
 Pygments==2.19.2
+pytest==8.4.1
+pyttsx3==2.99
 requests==2.32.5
 srt==3.5.3
 tqdm==4.67.1

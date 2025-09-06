@@ -1,0 +1,128 @@
+#:set bg_color 0.1, 0.1, 0.1, 1
+#:set text_color 1, 1, 1, 1
+#:set primary_color 0, 0.6, 0, 1
+#:set accent_color 0.8, 0, 0, 1
+#:set disabled_color 0.4, 0.4, 0.4, 1
+
+<MainScreen>:
+    canvas.before:
+        Color:
+            rgba: bg_color
+        Rectangle:
+            pos: self.pos
+            size: self.size
+
+    BoxLayout:
+        orientation: 'vertical'
+        spacing: '20dp'
+        padding: '30dp'
+
+        # Title
+        Label:
+            text: 'Voice Reminder Assistant'
+            font_size: '40sp'
+            size_hint_y: 0.15
+            color: text_color
+            bold: True
+            text_size: self.width, None
+            halign: 'center'
+            valign: 'middle'
+
+        # Voice Button
+        Button:
+            id: voice_button
+            text: 'Press to Speak' if not root.is_listening else 'Listening...'
+            font_size: '36sp'
+            size_hint_y: 0.2
+            background_color: primary_color if not root.is_listening else accent_color
+            color: text_color
+            bold: True
+            on_press: root.toggle_listening()
+            disabled: False  # Will be set programmatically
+
+        # Status Label
+        Label:
+            id: status_label
+            text: root.status_text
+            font_size: '32sp'
+            size_hint_y: 0.1
+            color: text_color
+            text_size: self.width, None
+            halign: 'center'
+            valign: 'middle'
+
+        # Reminders Title
+        Label:
+            text: 'Your Reminders:'
+            font_size: '36sp'
+            size_hint_y: 0.1
+            color: text_color
+            bold: True
+            text_size: self.width, None
+            halign: 'left'
+            valign: 'middle'
+
+        # Reminders List
+        ScrollView:
+            size_hint_y: 0.45
+            do_scroll_x: False
+            do_scroll_y: True
+            bar_width: '15dp'
+            bar_color: 0.7, 0.7, 0.7, 0.6
+            bar_inactive_color: 0.7, 0.7, 0.7, 0.2
+
+            GridLayout:
+                id: reminders_container
+                cols: 1
+                size_hint_y: None
+                height: self.minimum_height
+                spacing: '10dp'
+                padding: '10dp'
+
+<ReminderLabel@Label>:
+    font_size: '28sp'
+    size_hint_y: None
+    height: '80dp'
+    color: root.text_color
+    text_size: self.width - 40, None
+    halign: 'left'
+    valign: 'middle'
+    padding_x: '20dp'
+
+<NoRemindersLabel@Label>:
+    font_size: '28sp'
+    size_hint_y: None
+    height: '120dp'
+    color: 0.8, 0.8, 0.8, 1
+    text_size: self.width - 40, None
+    halign: 'center'
+    valign: 'middle'
+    padding_x: '20dp'
+
+# Rounded corners for buttons
+<ModernButton@Button>:
+    background_normal: ''
+    background_color: self.background_color
+    canvas.before:
+        Color:
+            rgba: self.background_color
+        RoundedRectangle:
+            pos: self.pos
+            size: self.size
+            radius: [20,]
+
+# Modern card-like reminders
+<ReminderCard@BoxLayout>:
+    orientation: 'vertical'
+    size_hint_y: None
+    height: '100dp'
+    padding: '15dp'
+    spacing: '5dp'
+    canvas.before:
+        Color:
+            rgba: 0.2, 0.2, 0.2, 1
+        RoundedRectangle:
+            pos: self.pos
+            size: self.size
+            radius: [15,]
+            radius: [15,]
