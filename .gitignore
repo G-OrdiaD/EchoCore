@@ -38,4 +38,4 @@ dist/
 *.spec
 
 # Other
-assets/
+assets/.idea/
